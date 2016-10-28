@@ -1,4 +1,4 @@
-# Powerline Kubernetes [![PyPI version](https://badge.fury.io/py/powerline-docker.svg)](https://badge.fury.io/py/powerline-docker)
+# Powerline Kubernetes [![PyPI version](https://badge.fury.io/py/powerline-kubernetes.svg)](https://badge.fury.io/py/powerline-kubernetes)
 
 A [Powerline](https://github.com/powerline/powerline) segment for showing the current Kubernetes context.
 
@@ -8,7 +8,7 @@ This segment shows the Kubernetes context together with a nice looking helm. Ple
 
 ## Requirements
 
-The Docker segment requires kubectl and [kubernetes-py](https://pypi.python.org/pypi/kubernetes-py/).
+The Kubernetes segment requires kubectl and [kubernetes-py](https://pypi.python.org/pypi/kubernetes-py/).
 
 ## Installation
 
@@ -18,7 +18,7 @@ Installing the Kubernetes segment can be done with `pip`:
 $ pip install powerline-kubernetes
 ```
 
-The Docker segment uses a couple of custom highlight groups. You'll need to define those groups in your colorscheme, for example in `.config/powerline/colorschemes/default.json`:
+The Kubernetes segment uses a couple of custom highlight groups. You'll need to define those groups in your colorscheme, for example in `.config/powerline/colorschemes/default.json`:
 
 ```json
 {
