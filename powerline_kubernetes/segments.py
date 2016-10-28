@@ -4,12 +4,9 @@ from kubernetes import K8sConfig
 
 class KubernetesSegment(Segment):
 
-    def get_context(self):
-	return K8sConfig().current_context
-
     def build_segments(self,context):
         segments = [
-            {'contents': u'\U00002388', 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
+            {'contents': u'\U00002388 ', 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
             {'contents': context, 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'}
         ]
 	return segments

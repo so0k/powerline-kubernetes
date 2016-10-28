@@ -1,1 +1,1 @@
-from .segments import docker  # noqa
+from .segments import kubernetes  # noqa
