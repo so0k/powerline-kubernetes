@@ -1,6 +1,6 @@
 # Powerline Kubernetes [![PyPI version](https://badge.fury.io/py/powerline-kubernetes.svg)](https://badge.fury.io/py/powerline-kubernetes)
 
-A [Powerline](https://github.com/powerline/powerline) segment for showing the current Kubernetes context.
+A [Powerline](https://github.com/powerline/powerline) segment to show the current Kubernetes context.
 
 This segment shows the Kubernetes context together with a nice looking helm. Please feel free to propose more features and give me ideas on how to improve it.
 
