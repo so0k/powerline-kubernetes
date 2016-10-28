@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name             = 'powerline-kubernetes',
     description      = 'A Powerline segment to show Kubernetes context',
-    version          = '1.0.0',
+    version          = '1.0.1',
     keywords         = 'powerline kubernetes context',
     license          = 'MIT',
     author           = 'Vincent De Smet',

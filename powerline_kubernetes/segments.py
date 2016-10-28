@@ -4,10 +4,10 @@ from kubernetes import K8sConfig
 
 class KubernetesSegment(Segment):
 
-    def build_segments(self,context):
+    def build_segments(self,context, namespace):
         segments = [
             {'contents': u'\U00002388 ', 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
-            {'contents': context, 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'}
+            {'contents': '%s - %s' % (context, namespace), 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
         ]
 	return segments
 
@@ -18,11 +18,12 @@ class KubernetesSegment(Segment):
 
 	try:
             context = K8sConfig().current_context
+	    namespace = K8sConfig().namespace
         except Exception as e:
             pl.error(e)
             return
 
-        return self.build_segments(context)
+        return self.build_segments(context,namespace)
 
 kubernetes = with_docstring(KubernetesSegment(),
 '''Return the current context.
