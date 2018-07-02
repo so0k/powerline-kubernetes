@@ -9,16 +9,16 @@ class KubernetesSegment(Segment):
             {'contents': u'\U00002388 ', 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
             {'contents': '%s - %s' % (context, namespace), 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
         ]
-	return segments
+        return segments
 
     def __call__(self, pl):
         pl.debug('Running powerline-kubernetes')
 
         self.pl = pl
 
-	try:
+        try:
             context = K8sConfig().current_context
-	    namespace = K8sConfig().namespace
+            namespace = K8sConfig().namespace
         except Exception as e:
             pl.error(e)
             return
