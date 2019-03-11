@@ -1,6 +1,6 @@
 # vim:fileencoding=utf-8:noet
 from powerline.segments import Segment, with_docstring
-from kubernetes import K8sConfig
+from kubernetes_py import K8sConfig
 
 class KubernetesSegment(Segment):
 
