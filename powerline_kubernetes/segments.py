@@ -1,13 +1,25 @@
-# vim:fileencoding=utf-8:noet
 from powerline.segments import Segment, with_docstring
-from kubernetes import K8sConfig
+
+import yaml
+# This is to prevent a warning about unsafe loads because kubernetes_py uses yaml.load instead of yaml.safe_load
+yaml.warnings({'YAMLLoadWarning': False})
+try:
+    from kubernetes_py import K8sConfig
+except ImportError:
+    # try the old name
+    from kubernetes import K8sConfig
 
 class KubernetesSegment(Segment):
 
-    def build_segments(self,context, namespace):
+    def build_segments(self, context, namespace):
+        if namespace=='default':
+            display_format = context
+        else:
+            display_format = '%s - %s' % (context, namespace)
+
         segments = [
             {'contents': u'\U00002388 ', 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
-            {'contents': '%s - %s' % (context, namespace), 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
+            {'contents': display_format, 'highlight_groups': ['kubernetes'], 'divider_highlight_group': 'kubernetes:divider'},
         ]
         return segments
 
