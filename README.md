@@ -24,7 +24,8 @@ The Kubernetes segment uses a couple of custom highlight groups. You'll need to 
 {
   "groups": {
     "kubernetes":                { "fg": "gray8",           "bg": "darkestblue", "attrs": [] },
-    "kubernetes:divider":        { "fg": "gray4",           "bg": "darkestblue", "attrs": [] }
+    "kubernetes:divider":        { "fg": "gray4",           "bg": "darkestblue", "attrs": [] },
+    "kubernetes:alert":          { "fg": "gray8",           "bg": "darkred",     "attrs": [] }
   }
 }
 ```
@@ -34,7 +35,16 @@ Then you can activate the Kubernetes segment by adding it to your segment config
 ```json
 {
     "function": "powerline_kubernetes.kubernetes",
-    "priority": 30
+    "priority": 30,
+    "args": {
+        "show_cluster": true, // show cluster name
+        "show_namespace": true, // show namespace name
+        "alert_namespaces": [
+          "live", // show line in different color when namespace matches
+          "cluster:live"  // show line in different color when cluster name and namespace matches
+        ]
+    }
+
 }
 ```
 
