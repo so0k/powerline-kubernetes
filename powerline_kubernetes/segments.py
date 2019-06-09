@@ -12,34 +12,41 @@ class KubernetesSegment(Segment):
     _conf_yaml = None
     conf_yaml = os.path.expanduser(kube_config.KUBE_CONFIG_DEFAULT_LOCATION)
 
+    def kube_logo(self, color):
+        return {
+            'contents': _KUBERNETES,
+            'highlight_groups': [color],
+            'divider_highlight_group': 'kubernetes:divider'
+        }
+
+
     def build_segments(self, context, namespace):
-        color = 'kubernetes:alert' if (namespace in self.alert_namespaces or context + ':' + namespace in self.alert_namespaces) else 'kubernetes'
-        segments = [
-            {
-                'contents': _KUBERNETES, 
-                'highlight_groups': [ color ], 
-                'divider_highlight_group': 'kubernetes:divider'
-            },
-        ]
+        alert = (namespace in self.alerts or context + ':' + namespace in self.alerts)
+        segments = []
 
         if self.show_cluster:
-            segments.append(
-                {
-                    'contents': context, 
-                    'highlight_groups': [ color ], 
-                    'divider_highlight_group': 'kubernetes:divider'
-                }
-            )
+            color = 'kubernetes_cluster:alert' if alert else 'kubernetes_cluster'
+            if self.show_kube_logo:
+                segments.append(self.kube_logo(color))
+
+            segments.append({
+                'contents': context,
+                'highlight_groups': [color],
+                'divider_highlight_group': 'kubernetes:divider'
+            })
 
         if self.show_namespace:
+            color = 'kubernetes_namespace:alert' if alert else 'kubernetes_namespace'
+
             if namespace != 'default' or self.show_default_namespace:
-                segments.append(
-                    {
-                        'contents': (' - ' if self.show_cluster else '') + namespace, 
-                        'highlight_groups': [ color ], 
-                        'divider_highlight_group': 'kubernetes:divider'
-                    }
-                )
+                if not self.show_cluster and self.show_kube_logo:
+                    segments.append(self.kube_logo(color))
+
+                segments.append({
+                    'contents': namespace,
+                    'highlight_groups': [color],
+                    'divider_highlight_group': 'kubernetes:divider'
+                })
 
         return segments
 
@@ -50,21 +57,31 @@ class KubernetesSegment(Segment):
                 self._conf_yaml = yaml.load(f)
         return self._conf_yaml
 
+    def __init__(self):
+        self.pl = None
+        self.show_kube_logo = None
+        self.show_cluster = None
+        self.show_namespace = None
+        self.show_default_namespace = None
+        self.alerts = []
+
     def __call__(
-            self, 
+            self,
             pl,
+            show_kube_logo=True,
             show_cluster=True,
             show_namespace=True,
             show_default_namespace=False,
-            alert_namespaces=[],
+            alerts=[],
             **kwargs
         ):
         pl.debug('Running powerline-kubernetes')
         self.pl = pl
+        self.show_kube_logo = show_kube_logo
         self.show_cluster = show_cluster
         self.show_namespace = show_namespace
         self.show_default_namespace = show_default_namespace
-        self.alert_namespaces = alert_namespaces
+        self.alerts = alerts
 
         try:
             k8_loader = kube_config.KubeConfigLoader(self.config)
