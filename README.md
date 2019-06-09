@@ -39,6 +39,7 @@ Then you can activate the Kubernetes segment by adding it to your segment config
     "args": {
         "show_cluster": true, // show cluster name
         "show_namespace": true, // show namespace name
+        "show_default_namespace": false, // do not show namespace name if it's "default"
         "alert_namespaces": [
           "live", // show line in different color when namespace matches
           "cluster:live"  // show line in different color when cluster name and namespace matches

@@ -32,13 +32,14 @@ class KubernetesSegment(Segment):
             )
 
         if self.show_namespace:
-            segments.append(
-                {
-                    'contents': (' - ' if self.show_cluster else '') + namespace, 
-                    'highlight_groups': [ color ], 
-                    'divider_highlight_group': 'kubernetes:divider'
-                }
-            )
+            if namespace != 'default' or self.show_default_namespace:
+                segments.append(
+                    {
+                        'contents': (' - ' if self.show_cluster else '') + namespace, 
+                        'highlight_groups': [ color ], 
+                        'divider_highlight_group': 'kubernetes:divider'
+                    }
+                )
 
         return segments
 
@@ -54,6 +55,7 @@ class KubernetesSegment(Segment):
             pl,
             show_cluster=True,
             show_namespace=True,
+            show_default_namespace=False,
             alert_namespaces=[],
             **kwargs
         ):
@@ -61,6 +63,7 @@ class KubernetesSegment(Segment):
         self.pl = pl
         self.show_cluster = show_cluster
         self.show_namespace = show_namespace
+        self.show_default_namespace = show_default_namespace
         self.alert_namespaces = alert_namespaces
 
         try:
