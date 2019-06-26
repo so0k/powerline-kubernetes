@@ -8,7 +8,7 @@ This segment shows the Kubernetes context together with a nice looking helm. Ple
 
 ## Requirements
 
-The Kubernetes segment requires kubectl and [kubernetes-py](https://pypi.python.org/pypi/kubernetes-py/).
+The Kubernetes segment requires kubectl and official [kubernetes Python API](https://pypi.org/project/kubernetes/).
 
 ## Installation
 
@@ -23,18 +23,18 @@ The Kubernetes segment uses a couple of custom highlight groups. You'll need to 
 ```json
 {
   "groups": {
-    "kubernetes_cluster":                  { "fg": "gray10",           "bg": "darkestblue", "attrs": [] },
-    "kubernetes_cluster:alert":            { "fg": "gray10",           "bg": "darkestred",  "attrs": [] },
-    "kubernetes_namespace":                { "fg": "gray10",           "bg": "darkestblue", "attrs": [] },
-    "kubernetes_namespace:alert":          { "fg": "gray10",           "bg": "darkred",     "attrs": [] },
-    "kubernetes:divider":                  { "fg": "gray4",            "bg": "darkestblue", "attrs": [] },
+    "kubernetes_cluster":         { "fg": "gray10", "bg": "darkestblue", "attrs": [] },
+    "kubernetes_cluster:alert":   { "fg": "gray10", "bg": "darkestred",  "attrs": [] },
+    "kubernetes_namespace":       { "fg": "gray10", "bg": "darkestblue", "attrs": [] },
+    "kubernetes_namespace:alert": { "fg": "gray10", "bg": "darkred",     "attrs": [] },
+    "kubernetes:divider":         { "fg": "gray4",  "bg": "darkestblue", "attrs": [] },
   }
 }
 ```
 
 Then you can activate the Kubernetes segment by adding it to your segment configuration, for example in `.config/powerline/themes/shell/default.json`:
 
-```json
+```javascript
 {
     "function": "powerline_kubernetes.kubernetes",
     "priority": 30,
@@ -45,14 +45,15 @@ Then you can activate the Kubernetes segment by adding it to your segment config
         "show_default_namespace": false, // do not show namespace name if it's "default"
         "alerts": [
           "live", // show line in different color when namespace matches
-          "cluster:live"  // show line in different color when cluster name and namespace matches
+          "cluster:live"  // show line in different color when cluster name and namespace match
         ]
     }
-
 }
 ```
 
 By default the segment will look for the Kubernetes config under `~/.kube/config`.
+
+
 ## License
 
 Licensed under the [MIT License](LICENSE).
@@ -60,3 +61,4 @@ Licensed under the [MIT License](LICENSE).
 ---
 
 Inspired by [powerline-docker](https://github.com/adrianmo/powerline-docker).
+Inspired by [powerkube](https://github.com/zcmarine/powerkube).

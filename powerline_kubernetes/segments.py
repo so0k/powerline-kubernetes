@@ -9,7 +9,6 @@ _KUBERNETES = u'\U00002388 '
 
 @requires_segment_info
 class KubernetesSegment(Segment):
-    _conf_yaml = None
     conf_yaml = os.path.expanduser(kube_config.KUBE_CONFIG_DEFAULT_LOCATION)
 
     def kube_logo(self, color):
@@ -18,7 +17,6 @@ class KubernetesSegment(Segment):
             'highlight_groups': [color],
             'divider_highlight_group': 'kubernetes:divider'
         }
-
 
     def build_segments(self, context, namespace):
         alert = (namespace in self.alerts or context + ':' + namespace in self.alerts)
@@ -53,9 +51,7 @@ class KubernetesSegment(Segment):
     @property
     def config(self):
         with open(self.conf_yaml, 'r') as f:
-            if self._conf_yaml is None:
-                self._conf_yaml = yaml.load(f)
-        return self._conf_yaml
+            return yaml.load(f)
 
     def __init__(self):
         self.pl = None
@@ -103,5 +99,7 @@ It requires kubectl and kubernetes-py to be installed.
 
 Divider highlight group used: ``kubernetes:divider``.
 
-Highlight groups used: ``kubernetes``.
+Highlight groups used: ``kubernetes_cluster``,
+``kubernetes_cluster:alert``, ``kubernetes_namespace``,
+and ``kubernetes_namespace:alert``, .
 ''')
