@@ -7,7 +7,7 @@ setup(
     description      = 'A Powerline segment to show Kubernetes context',
     long_description = (pathlib.Path(__file__).parent / "README.md").read_text(),
     long_description_content_type="text/markdown",
-    version          = '1.0.2',
+    version          = '1.1.0',
     keywords         = 'powerline kubernetes context',
     license          = 'MIT',
     author           = 'Vincent De Smet',

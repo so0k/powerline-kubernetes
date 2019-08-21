@@ -6,6 +6,9 @@ This segment shows the Kubernetes context together with a nice looking helm. Ple
 
 <img src="screenshot.png" width="300">
 
+
+**Update:** Now completely compatible with Kubernetes API 9.0.
+
 ## Requirements
 
 The Kubernetes segment requires kubectl and official [kubernetes Python API](https://pypi.org/project/kubernetes/).
@@ -57,6 +60,13 @@ By default the segment will look for the Kubernetes config under `~/.kube/config
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+
+## Authors
+
+Created by [so0k](https://github.com/so0k/). Code contributions by:
+- [bokysan](https://github.com/bokysan)
+
 
 ---
 
