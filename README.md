@@ -6,9 +6,12 @@ This segment shows the Kubernetes context together with a nice looking helm. Ple
 
 <img src="screenshot.png" width="300">
 
+
+**Update:** Now completely compatible with Kubernetes API 9.0.
+
 ## Requirements
 
-The Kubernetes segment requires kubectl and [kubernetes-py](https://pypi.python.org/pypi/kubernetes-py/).
+The Kubernetes segment requires kubectl and official [kubernetes Python API](https://pypi.org/project/kubernetes/).
 
 ## Installation
 
@@ -23,25 +26,47 @@ The Kubernetes segment uses a couple of custom highlight groups. You'll need to 
 ```json
 {
   "groups": {
-    "kubernetes":                { "fg": "gray8",           "bg": "darkestblue", "attrs": [] },
-    "kubernetes:divider":        { "fg": "gray4",           "bg": "darkestblue", "attrs": [] }
+    "kubernetes_cluster":         { "fg": "gray10", "bg": "darkestblue", "attrs": [] },
+    "kubernetes_cluster:alert":   { "fg": "gray10", "bg": "darkestred",  "attrs": [] },
+    "kubernetes_namespace":       { "fg": "gray10", "bg": "darkestblue", "attrs": [] },
+    "kubernetes_namespace:alert": { "fg": "gray10", "bg": "darkred",     "attrs": [] },
+    "kubernetes:divider":         { "fg": "gray4",  "bg": "darkestblue", "attrs": [] },
   }
 }
 ```
 
 Then you can activate the Kubernetes segment by adding it to your segment configuration, for example in `.config/powerline/themes/shell/default.json`:
 
-```json
+```javascript
 {
     "function": "powerline_kubernetes.kubernetes",
-    "priority": 30
+    "priority": 30,
+    "args": {
+        "show_kube_logo": true, // set to false to omit the Kube logo
+        "show_cluster": true, // show cluster name
+        "show_namespace": true, // show namespace name
+        "show_default_namespace": false, // do not show namespace name if it's "default"
+        "alerts": [
+          "live", // show line in different color when namespace matches
+          "cluster:live"  // show line in different color when cluster name and namespace match
+        ]
+    }
 }
 ```
 
 By default the segment will look for the Kubernetes config under `~/.kube/config`.
+
+
 ## License
 
 Licensed under the [MIT License](LICENSE).
+
+
+## Authors
+
+Created by [so0k](https://github.com/so0k/). Code contributions by:
+- [bokysan](https://github.com/bokysan)
+
 
 ---
 
