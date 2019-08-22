@@ -71,4 +71,3 @@ Created by [so0k](https://github.com/so0k/). Code contributions by:
 ---
 
 Inspired by [powerline-docker](https://github.com/adrianmo/powerline-docker).
-Inspired by [powerkube](https://github.com/zcmarine/powerkube).
