@@ -51,7 +51,7 @@ class KubernetesSegment(Segment):
     @property
     def config(self):
         with open(self.conf_yaml, 'r') as f:
-            return yaml.load(f)
+            return yaml.load(f, Loader=yaml.FullLoader)
 
     def __init__(self):
         self.pl = None
