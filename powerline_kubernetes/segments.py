@@ -19,7 +19,7 @@ class KubernetesSegment(Segment):
         }
 
     def build_segments(self, context, namespace):
-        alert = (namespace in self.alerts or context + ':' + namespace in self.alerts)
+        alert = (context in self.alerts or namespace in self.alerts or context + ':' + namespace in self.alerts)
         segments = []
 
         if self.show_cluster:
@@ -88,6 +88,11 @@ class KubernetesSegment(Segment):
         except Exception as e:
             pl.error(e)
             return
+        try:
+            namespace = ctx['namespace']
+        except KeyError:
+            namespace = 'default'
+
 
         return self.build_segments(context, namespace)
 
