@@ -30,7 +30,7 @@ The Kubernetes segment uses a couple of custom highlight groups. You'll need to 
     "kubernetes_cluster:alert":   { "fg": "gray10", "bg": "darkestred",  "attrs": [] },
     "kubernetes_namespace":       { "fg": "gray10", "bg": "darkestblue", "attrs": [] },
     "kubernetes_namespace:alert": { "fg": "gray10", "bg": "darkred",     "attrs": [] },
-    "kubernetes:divider":         { "fg": "gray4",  "bg": "darkestblue", "attrs": [] },
+    "kubernetes:divider":         { "fg": "gray4",  "bg": "darkestblue", "attrs": [] }
   }
 }
 ```
@@ -42,13 +42,25 @@ Then you can activate the Kubernetes segment by adding it to your segment config
     "function": "powerline_kubernetes.kubernetes",
     "priority": 30,
     "args": {
-        "show_kube_logo": true, // set to false to omit the Kube logo
-        "show_cluster": true, // show cluster name
-        "show_namespace": true, // show namespace name
-        "show_default_namespace": false, // do not show namespace name if it's "default"
+        "show_kube_logo": true,
+        "_comment_show_kube_logo": "//set to false to omit the Kube logo",
+        
+        "show_cluster": true,
+        "_comment_show_cluster": "// show cluster name",
+        
+        "show_namespace": true,
+        "_comment_show_namespace": "// show namespace name",
+        
+        "show_default_namespace": false,
+        "_comment_show_default_namespace": "// do not show namespace name if it's default",
+        
         "alerts": [
-          "live", // show line in different color when namespace matches
-          "cluster:live"  // show line in different color when cluster name and namespace match
+          "live",
+          "cluster:live"
+        ],
+        "_comment_alerts" : [
+        "// show line in different color when namespace matches",
+        "// show line in different color when cluster name and namespace match"
         ]
     }
 }
