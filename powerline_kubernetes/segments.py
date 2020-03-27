@@ -59,6 +59,7 @@ class KubernetesSegment(Segment):
         self.show_cluster = None
         self.show_namespace = None
         self.show_default_namespace = None
+        self.kube_config_path = None
         self.alerts = []
 
     def __call__(
@@ -68,6 +69,7 @@ class KubernetesSegment(Segment):
             show_cluster=True,
             show_namespace=True,
             show_default_namespace=False,
+            kube_config_path=None,
             alerts=[],
             **kwargs
         ):
@@ -77,6 +79,7 @@ class KubernetesSegment(Segment):
         self.show_cluster = show_cluster
         self.show_namespace = show_namespace
         self.show_default_namespace = show_default_namespace
+        self.kube_config_path = kube_config_path or self.conf_yaml
         self.alerts = alerts
 
         try:
