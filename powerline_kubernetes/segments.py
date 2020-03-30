@@ -30,7 +30,8 @@ class KubernetesSegment(Segment):
             segments.append({
                 'contents': context,
                 'highlight_groups': [color],
-                'divider_highlight_group': 'kubernetes:divider'
+                'divider_highlight_group': 'kubernetes:divider',
+                'draw_inner_divider': ' '
             })
 
         if self.show_namespace:
@@ -43,7 +44,8 @@ class KubernetesSegment(Segment):
                 segments.append({
                     'contents': namespace,
                     'highlight_groups': [color],
-                    'divider_highlight_group': 'kubernetes:divider'
+                    'divider_highlight_group': 'kubernetes:divider',
+                    'draw_inner_divider': ' '
                 })
 
         return segments
