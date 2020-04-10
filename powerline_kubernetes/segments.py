@@ -84,7 +84,6 @@ class KubernetesSegment(Segment):
             current_context = k8_loader.current_context
             ctx = current_context['context']
             context = current_context['name']
-            namespace = ctx['namespace']
         except Exception as e:
             pl.error(e)
             return
