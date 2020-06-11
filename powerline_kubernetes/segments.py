@@ -9,8 +9,6 @@ _KUBERNETES = u'\U00002388 '
 
 @requires_segment_info
 class KubernetesSegment(Segment):
-    conf_yaml = os.path.expanduser(kube_config.KUBE_CONFIG_DEFAULT_LOCATION)
-
     def kube_logo(self, color):
         return {
             'contents': _KUBERNETES,
@@ -48,11 +46,6 @@ class KubernetesSegment(Segment):
 
         return segments
 
-    @property
-    def config(self):
-        with open(self.conf_yaml, 'r') as f:
-            return yaml.load(f, Loader=yaml.FullLoader)
-
     def __init__(self):
         self.pl = None
         self.show_kube_logo = None
@@ -80,7 +73,13 @@ class KubernetesSegment(Segment):
         self.alerts = alerts
 
         try:
-            k8_loader = kube_config.KubeConfigLoader(self.config)
+            pl.debug('merging kubeconfig')
+            kcfg = kube_config.KubeConfigMerger(kube_config.KUBE_CONFIG_DEFAULT_LOCATION)
+            if kcfg.config is None:
+                raise Exception('invalid kube-config file: no configuration found')
+            pl.debug('loading merged kubeconfig')
+            k8_loader = kube_config.KubeConfigLoader(config_dict=kcfg.config_merged, config_base_path=None)
+            pl.debug('fetching context')
             current_context = k8_loader.current_context
             ctx = current_context['context']
             context = current_context['name']
